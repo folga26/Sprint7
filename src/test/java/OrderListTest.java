@@ -9,14 +9,16 @@ import org.hamcrest.MatcherAssert;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 @RunWith(Parameterized.class)
-public class MakingOrderTest {
+public class OrderListTest {
     private final OrderCreation creatingOrder;
 
-    public MakingOrderTest(OrderCreation creatingOrder) { this.creatingOrder = creatingOrder; }
+    public OrderListTest(OrderCreation creatingOrder) { this.creatingOrder = creatingOrder; }
 
     @Parameterized.Parameters
     public static Collection<Object[]> list(){
@@ -43,13 +45,24 @@ public class MakingOrderTest {
                 .extract()
                 .response(); }
 
+    @Step("Получить список заказов")
+    private Response gettingListOrders(OrderCreation creatingOrder){
+        return given()
+                .header("Content-type", "application/json")
+                .get("/api/v1/orders")
+                .then()
+                .extract()
+                .response(); }
+
+
 
     @Test
-    @Step("Создать заказ")
-    public void createAnOrder() {
-        Response response = creatingOrder(creatingOrder);
-        response.then().statusCode(201);
-        Integer track = response.path("track");
-        MatcherAssert.assertThat(track, notNullValue());  }
+    public void listOrders () {
+        Response newresponse = gettingListOrders(creatingOrder);
+        newresponse.then().statusCode(200);
+        List orders = newresponse.path("orders");
+        MatcherAssert.assertThat(orders, notNullValue());
+    }
+
 
 }
