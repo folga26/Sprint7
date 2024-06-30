@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: CourierRequestsTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.768 s <<< FAILURE! - in CourierRequestsTest
+creatingCourier(CourierRequestsTest)  Time elapsed: 0.151 s  <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+Expected status code <201> but was <409>.
+
+	at CourierRequestsTest.requestSuccessfully(CourierRequestsTest.java:40)
+	at CourierRequestsTest.creatingCourier(CourierRequestsTest.java:58)
+
