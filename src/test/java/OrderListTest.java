@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 @RunWith(Parameterized.class)
 public class OrderListTest {
